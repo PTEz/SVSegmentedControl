@@ -43,7 +43,7 @@
     segmentedControl.thumb.shouldCastShadow = NO;
     segmentedControl.thumb.backgroundImage = [[UIImage imageNamed:@"bgSegmentedControlWhite.png"] resizableImageWithCapInsets:(UIEdgeInsets) {3, 3, 3, 3}];
 
-    //segmentedControl.thumb.highlightedBackgroundImage = [[UIImage imageNamed:@"bgSegmentedControlWhite.png"] resizableImageWithCapInsets:(UIEdgeInsets) {3, 3, 3, 3}];
+    segmentedControl.thumb.highlightedBackgroundImage = [[UIImage imageNamed:@"bgSegmentedControlWhite.png"] resizableImageWithCapInsets:(UIEdgeInsets) {3, 3, 3, 3}];
 
 
     segmentedControl.center = (CGPoint){160, 70};
