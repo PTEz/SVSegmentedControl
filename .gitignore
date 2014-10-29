@@ -19,3 +19,4 @@ build/
 # Backup files
 *~.nib
 / graphics/
+.idea/
