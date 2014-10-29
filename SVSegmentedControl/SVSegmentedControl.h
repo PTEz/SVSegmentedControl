@@ -38,6 +38,7 @@
 @property (nonatomic, readwrite) CGFloat cornerRadius; // default is 4.0
 
 @property (nonatomic, strong) UIFont *font; // default is [UIFont boldSystemFontOfSize:15]
+@property (nonatomic, strong) UIFont *selectedSegmentFont;
 @property (nonatomic, strong) UIColor *textColor; // default is [UIColor grayColor];
 @property (nonatomic, strong) UIColor *textShadowColor;  // default is [UIColor blackColor]
 @property (nonatomic, readwrite) CGSize textShadowOffset;  // default is CGSizeMake(0, -1)
