@@ -57,6 +57,7 @@
 @property(nonatomic, readwrite) CGFloat dragOffset;
 @property(nonatomic, readwrite) CGFloat segmentWidth;
 @property(nonatomic, readwrite) CGFloat thumbHeight;
+@property(nonatomic, strong) NSMutableArray *titleLabelsArray;
 
 @end
 
@@ -107,7 +108,10 @@
 {
 
     if (_thumb == nil)
+    {
         _thumb = [[SVSegmentedThumb alloc] initWithFrame:CGRectZero];
+    }
+
 
     return _thumb;
 }
@@ -159,9 +163,30 @@
     self.thumb.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.thumb.bounds cornerRadius:2].CGPath;
 
     self.thumb.font = self.selectedSegmentFont ? self.selectedSegmentFont : self.font;
+    if (!self.titleLabelsArray)
+    {
+        [self drawLabelsInRect:self.frame];
+    }
+    [self updateLabels];
 
     [self insertSubview:self.thumb atIndex:0];
     [self setThumbValuesForIndex:self.selectedSegmentIndex];
+}
+
+- (void)updateLabels
+{
+    int i = 0;
+    for (UILabel *label in self.titleLabelsArray)
+    {
+        if (i == self.selectedSegmentIndex)
+        {
+            label.font = self.selectedSegmentFont;
+        } else
+        {
+            label.font = self.font;
+        }
+        i++;
+    }
 }
 
 - (void)calculateSegmentWidth
@@ -459,7 +484,7 @@
     self.trackingThumb = self.moved = NO;
 
     [self setThumbValuesForIndex:self.selectedSegmentIndex];
-
+    [self updateLabels];
     [UIView animateWithDuration:0.1
                           delay:0
                         options:UIViewAnimationOptionAllowUserInteraction
@@ -514,6 +539,7 @@
                              {
                                  if (finished)
                                  {
+                                     [self updateLabels];
                                      [self activate];
                                  }
                              }];
@@ -662,8 +688,12 @@
     CGContextSetShadowWithColor(context, self.textShadowOffset, 0, self.textShadowColor.CGColor);
     [self.textColor set];
 
-    int i = 0;
+}
 
+- (void)drawLabelsInRect:(CGRect)rect
+{
+    int i = 0;
+    self.titleLabelsArray = [NSMutableArray new];
     for (NSString *titleString in self.sectionTitles)
     {
         CGSize titleSize = [titleString sizeWithFont:self.font];
@@ -687,12 +717,12 @@
         if (image)
             [[self sectionImage:image withTintColor:self.textColor] drawAtPoint:CGPointMake(titlePosX, round((rect.size.height - image.size.height) / 2))];
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
-		[titleString drawAtPoint:CGPointMake(titlePosX+imageWidth, posY) forWidth:self.segmentWidth withFont:self.font lineBreakMode:UILineBreakModeTailTruncation];
-#else
-        [titleString drawAtPoint:CGPointMake(titlePosX + imageWidth, posY) forWidth:self.segmentWidth withFont:self.font lineBreakMode:NSLineBreakByClipping];
-#endif
+        UILabel *label = [[UILabel alloc] initWithFrame:(CGRect) {titlePosX + imageWidth, posY, self.segmentWidth, titleSize.height}];
+        label.font = self.font;
+        label.text = titleString;
         i++;
+        [self insertSubview:label atIndex:1];
+        [self.titleLabelsArray addObject:label];
     }
 }
 
