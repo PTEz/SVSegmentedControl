@@ -84,7 +84,7 @@
 		[self addSubview:_firstLabel];
     }
     
-    return _firstLabel;
+    return nil;
 }
 
 - (UILabel*)secondLabel {
@@ -368,7 +368,7 @@
 	selected = s;
 	
 	if(selected && !self.segmentedControl.crossFadeLabelsOnDrag && !self.highlightedBackgroundImage)
-		self.alpha = 0.8;
+		self.alpha = 0.7;
 	else
 		self.alpha = 1;
 	
@@ -388,7 +388,7 @@
 	[self setSelected:YES];
     
     if(!self.segmentedControl.crossFadeLabelsOnDrag) {
-        self.label.alpha = 0;
+        self.label.alpha = 1;
         self.imageView.alpha = 0;
     }
 }
