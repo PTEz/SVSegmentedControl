@@ -14,17 +14,51 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	// 1st CONTROL
+
+    SVSegmentedControl *segmentedControl = [[SVSegmentedControl alloc] initWithSectionTitles:@[@"All groups", @"My groups"]];
+
+    segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+
+    segmentedControl.frame = (CGRect) {10, 13, 300, 29};
+    segmentedControl.cornerRadius = 6;
+
+    //
+    //not selected sector
+    segmentedControl.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+    segmentedControl.selectedSegmentFont = [UIFont fontWithName:@"HelveticaNeue-Medium" size:13];;
+    segmentedControl.backgroundImage = [[UIImage imageNamed:@"bgSegmentedControl.png"] resizableImageWithCapInsets:(UIEdgeInsets) {4, 4, 4, 4}];
+    segmentedControl.height = 30;
+    segmentedControl.textColor = [UIColor grayColor];
+    segmentedControl.textShadowOffset = (CGSize) {0, 0};
+    segmentedControl.textShadowColor = [UIColor clearColor];
+    segmentedControl.innerShadowColor = [UIColor clearColor];
+    segmentedControl.crossFadeLabelsOnDrag = NO;
+    segmentedControl.thumbEdgeInset = (UIEdgeInsets) {1, 1, 0, 1};
+
+    //
+    // selected sector
+    segmentedControl.thumb.textColor = [UIColor blackColor];
+    segmentedControl.thumb.textShadowOffset = (CGSize) {0, 0};
+    segmentedControl.thumb.textShadowColor = [UIColor clearColor];
+    segmentedControl.thumb.shouldCastShadow = NO;
+    segmentedControl.thumb.backgroundImage = [[UIImage imageNamed:@"bgSegmentedControlWhite.png"] resizableImageWithCapInsets:(UIEdgeInsets) {3, 3, 3, 3}];
+
+    //segmentedControl.thumb.highlightedBackgroundImage = [[UIImage imageNamed:@"bgSegmentedControlWhite.png"] resizableImageWithCapInsets:(UIEdgeInsets) {3, 3, 3, 3}];
+
+
+    segmentedControl.center = (CGPoint){160, 70};
+    [self.view addSubview:segmentedControl];
+
+    // 1st CONTROL
 	
 	SVSegmentedControl *navSC = [[SVSegmentedControl alloc] initWithSectionTitles:[NSArray arrayWithObjects:@"Section 1", @"Section 2", nil]];
     navSC.changeHandler = ^(NSUInteger newIndex) {
         NSLog(@"segmentedControl did select index %i (via block handler)", newIndex);
     };
     
-	[self.view addSubview:navSC];
+	//[self.view addSubview:navSC];
 	
-	navSC.center = CGPointMake(160, 70);
+	//navSC.center = CGPointMake(160, 70);
 	
 	
 	// 2nd CONTROL
