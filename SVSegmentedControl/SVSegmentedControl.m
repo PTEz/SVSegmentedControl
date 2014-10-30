@@ -180,9 +180,11 @@
     {
         if (i == self.selectedSegmentIndex)
         {
+            label.textColor = self.thumb.textColor;
             label.font = self.selectedSegmentFont;
         } else
         {
+            label.textColor = self.textColor;
             label.font = self.font;
         }
         i++;
