@@ -555,6 +555,16 @@
     }
 }
 
+- (void)updateSegmentTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if(index < self.titleLabelsArray.count)
+    {
+        UILabel *labelToUpdate = self.titleLabelsArray[index];
+        labelToUpdate.text = title;
+    }
+}
+
+
 #pragma mark - SectionTitles
 
 - (void)setSectionTitles:(NSArray *)sectionTitles
