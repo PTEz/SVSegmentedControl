@@ -60,6 +60,7 @@
 
     segmentedControl.center = (CGPoint) {160, 70};
     [self.view addSubview:segmentedControl];
+    [segmentedControl updateSegmentTitle:kkString atIndex:0];
 
     // 1st CONTROL
 

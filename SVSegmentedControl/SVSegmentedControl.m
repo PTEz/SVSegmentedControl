@@ -71,7 +71,8 @@
 
     if (self = [super initWithFrame:CGRectZero])
     {
-        self.sectionTitles = array;
+        self.sectionTitles = [array mutableCopy];
+
         self.thumbRects = [NSMutableArray arrayWithCapacity:[array count]];
         self.accessibilityElements = [NSMutableArray arrayWithCapacity:self.sectionTitles.count];
 
@@ -563,7 +564,7 @@
     {
         UILabel *labelToUpdate = self.titleLabelsArray[index];
         labelToUpdate.attributedText = title;
-        self.sectionTitles[index] = title;
+        [self.sectionTitles replaceObjectAtIndex:index withObject:title];
     }
 }
 
@@ -574,7 +575,7 @@
 {
     if (_sectionTitles != sectionTitles)
     {
-        _sectionTitles = [sectionTitles copy];
+        _sectionTitles = [sectionTitles mutableCopy];
         if (self.selectedSegmentIndex < _sectionTitles.count)
         {
 
