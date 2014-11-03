@@ -58,7 +58,7 @@
 @property(nonatomic, readwrite) CGFloat segmentWidth;
 @property(nonatomic, readwrite) CGFloat thumbHeight;
 @property(nonatomic, strong) NSMutableArray *titleLabelsArray;
-
+@property(nonatomic) BOOL isTitlesAtrributed;
 @end
 
 
@@ -66,7 +66,7 @@
 
 #pragma mark - Life Cycle
 
-- (id)initWithSectionTitles:(NSArray *)array
+- (SVSegmentedControl *)initWithAttributedSectionTitles:(NSArray *)array
 {
 
     if (self = [super initWithFrame:CGRectZero])
@@ -181,7 +181,8 @@
         if (i == self.selectedSegmentIndex)
         {
             label.textColor = self.thumb.textColor;
-            label.font = self.selectedSegmentFont;
+            label.text = nil;
+            label.attributedText = self.sectionTitles[i];
         } else
         {
             label.textColor = self.textColor;
@@ -516,6 +517,7 @@
     [self setSelectedSegmentIndex:index animated:animate];
 }
 
+
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated
 {
     _selectedSegmentIndex = index;
@@ -557,7 +559,7 @@
 
 - (void)updateSegmentTitle:(NSString *)title atIndex:(NSInteger)index
 {
-    if(index < self.titleLabelsArray.count)
+    if (index < self.titleLabelsArray.count)
     {
         UILabel *labelToUpdate = self.titleLabelsArray[index];
         labelToUpdate.text = title;
@@ -706,9 +708,9 @@
 {
     int i = 0;
     self.titleLabelsArray = [NSMutableArray new];
-    for (NSString *titleString in self.sectionTitles)
+    for (NSAttributedString *titleString in self.sectionTitles)
     {
-        CGSize titleSize = [titleString sizeWithFont:self.font];
+        CGSize titleSize = [titleString.string sizeWithFont:self.font];
         CGFloat titleWidth = titleSize.width;
         CGFloat posY = round((CGRectGetHeight(rect) - self.font.ascender - 5) / 2) + self.titleEdgeInsets.top - self.titleEdgeInsets.bottom;
         //NSLog(@"%@ %f, height=%f, descender=%f, ascender=%f, lineHeight=%f", self.font.familyName, self.font.pointSize, titleSize.height, self.font.descender, self.font.ascender, self.font.lineHeight);
@@ -731,7 +733,7 @@
 
         UILabel *label = [[UILabel alloc] initWithFrame:(CGRect) {titlePosX + imageWidth, posY, self.segmentWidth, titleSize.height}];
         label.font = self.font;
-        label.text = titleString;
+        label.attributedText = titleString;
         i++;
         [self insertSubview:label atIndex:1];
         [self.titleLabelsArray addObject:label];
