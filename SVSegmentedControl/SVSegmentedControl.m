@@ -557,12 +557,12 @@
     }
 }
 
-- (void)updateSegmentTitle:(NSString *)title atIndex:(NSInteger)index
+- (void)updateSegmentTitle:(NSAttributedString *)title atIndex:(NSInteger)index
 {
     if (index < self.titleLabelsArray.count)
     {
         UILabel *labelToUpdate = self.titleLabelsArray[index];
-        labelToUpdate.text = title;
+        labelToUpdate.attributedText = title;
     }
 }
 
