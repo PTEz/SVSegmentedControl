@@ -17,7 +17,7 @@
 @interface SVSegmentedControl : UIControl
 
 @property(nonatomic, copy) void (^changeHandler)(NSUInteger newIndex); // you can also use addTarget:action:forControlEvents:
-@property(nonatomic, copy) NSArray *sectionTitles;
+@property(nonatomic, copy) NSMutableArray *sectionTitles;
 @property(nonatomic, copy) NSArray *sectionImages;
 
 @property(nonatomic, strong, readonly) SVSegmentedThumb *thumb;

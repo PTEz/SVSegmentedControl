@@ -563,6 +563,7 @@
     {
         UILabel *labelToUpdate = self.titleLabelsArray[index];
         labelToUpdate.attributedText = title;
+        self.sectionTitles[index] = title;
     }
 }
 
